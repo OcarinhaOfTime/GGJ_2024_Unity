@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
 
     public void OnPlayerSpawn(Transform new_player) {
         isoCamera.player = new_player;
+        isoCamera.players.Add(new_player);
     }
 
     void GenerateItems() {
