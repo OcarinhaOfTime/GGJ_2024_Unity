@@ -19,5 +19,11 @@ public class Tile : MonoBehaviour {
 
     public void Setup(MapController controller) {
         this.controller = controller;
-    }    
+    }
+
+    public Vector2 testPos;
+    [ContextMenu("Test")]
+    void Test() {
+        pos = testPos;
+    }
 }

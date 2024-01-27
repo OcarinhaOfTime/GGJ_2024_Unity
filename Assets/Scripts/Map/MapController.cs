@@ -49,6 +49,8 @@ public class MapController : MonoBehaviour {
         //var min = new Vector2(-width/2, -height/2);
         var p = Map<Tile>.CoordToWorldPoint(x, y, width, height);
         inst.Setup(this);
+
+        inst.transform.localPosition = Vector2.zero;
         inst.pos = p;
         inst.name = $"{x}x{y}";
         inst.gameObject.SetActive(true);
