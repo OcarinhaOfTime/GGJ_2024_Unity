@@ -4,14 +4,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    public Vector2 lim_x;
+    public Vector2 lim_y;
     public static GameManager instance;
     public MapController mapController;
-    public CharacterController charController;
+    //public CharacterController charController;
 
     [Range(0, 10)]public int items = 5;
     public ItemPickup prefab;
     //public List<ItemPickup> itemsPickups;
     public Dictionary<Vector2Int, ItemPickup> itemDict;
+    public IsoCamera isoCamera;
 
     void Awake() {
         instance = this;
@@ -22,8 +25,8 @@ public class GameManager : MonoBehaviour {
         var ws = new Vector2Int(mapController.width, mapController.height);
         var limw = mapController.map.CoordToWorldPoint(ws) - Vector2.one;
         print(limw);
-        charController.lim_x = new Vector2(-limw.x, limw.x);
-        charController.lim_y = new Vector2(-limw.y, limw.y);
+        lim_x = new Vector2(-limw.x, limw.x);
+        lim_y = new Vector2(-limw.y, limw.y);
 
         GenerateItems();
     }
@@ -35,6 +38,10 @@ public class GameManager : MonoBehaviour {
         "Nothin", 
         "Buff" 
     };
+
+    public void OnPlayerSpawn(Transform new_player) {
+        isoCamera.player = new_player;
+    }
 
     void GenerateItems() {
         var itemQueue = new ShufflerQueue<Tile>(mapController.map);

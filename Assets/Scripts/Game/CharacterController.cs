@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour {
     public Vector2 lim_x;
@@ -10,6 +11,13 @@ public class CharacterController : MonoBehaviour {
     public float speed = 1.0f;
 
     public Vector2 vel;
+    public enum PlayerType {
+        Player1 = 0,
+        Player2 = 1,
+    }
+
+    public PlayerType playerType;
+    PlayerInput playerInput;
     public Vector2 pos {
         get => new Vector2(transform.localPosition.x, transform.localPosition.z);
         set => transform.localPosition = new Vector3(value.x, transform.localPosition.y, value.y);
@@ -17,13 +25,22 @@ public class CharacterController : MonoBehaviour {
     private void Awake() {
         controlMap = new ControlMap();
         controlMap.Enable();
+
+        playerInput = GetComponent<PlayerInput>();
     }
 
     void Start() {
-        controlMap.Player.Move.performed += 
+        var cont = GameManager.instance;
+        lim_x = cont.lim_x;
+        lim_y = cont.lim_y;
+
+        cont.OnPlayerSpawn(transform);
+
+        var player = controlMap.Player;
+        player.Move.performed += 
             ctx => Move(ctx.ReadValue<Vector2>());
 
-        controlMap.Player.Move.canceled +=
+        player.Move.canceled +=
             ctx => Move(ctx.ReadValue<Vector2>());
     }
 
@@ -34,8 +51,10 @@ public class CharacterController : MonoBehaviour {
     private void FixedUpdate() {
         var npos = pos;
         npos += Time.deltaTime * speed * vel;
+
         npos.x = Mathf.Clamp(npos.x, lim_x.x, lim_x.y);
         npos.y = Mathf.Clamp(npos.y, lim_y.x, lim_y.y);
+
         pos = npos;
     }
 }
