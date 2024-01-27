@@ -84,6 +84,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 #layout
-UserSettings/Layouts/default-2021.dwlt
-UserSettings/Layouts/
-UserSettings/Layouts/*
+/UserSettings/Layouts/
