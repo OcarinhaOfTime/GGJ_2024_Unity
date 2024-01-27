@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class IsoCamera : MonoBehaviour
 {
     public Transform player;
+    public List<Transform> players;
     public float smoothSpeed = 3f;
     public Vector3 offset;
     public Vector2 minBounds;
@@ -15,11 +16,16 @@ public class IsoCamera : MonoBehaviour
     public float minX = -5f;
     public float maxX = 5f;
 
+     void Start()
+    {
+        var numberOfPlayers = players.Count;
+        if (numberOfPlayers > 0) ;
+    }
     private void LateUpdate()
     {
-        if (player != null)
-        {
-            Vector3 desiredPosition = player.position + offset;
+        if (players.Count == 0) return;
+
+        Vector3 desiredPosition = offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
            
            smoothedPosition.x = Mathf.Clamp(smoothedPosition.x, minBounds.x, maxBounds.x);
@@ -28,7 +34,7 @@ public class IsoCamera : MonoBehaviour
             transform.position = smoothedPosition;
 
 
-        }
+        
     }
 }
 
