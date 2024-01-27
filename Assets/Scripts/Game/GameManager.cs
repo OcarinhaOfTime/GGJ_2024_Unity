@@ -28,19 +28,28 @@ public class GameManager : MonoBehaviour {
         GenerateItems();
     }
 
+    static string[] nams = new string[5] {
+        "Page 1",
+        "Page 2", 
+        "Trap", 
+        "Nothin", 
+        "Buff" 
+    };
+
     void GenerateItems() {
         var itemQueue = new ShufflerQueue<Tile>(mapController.map);
         itemDict = new Dictionary<Vector2Int, ItemPickup>();
         for (int i = 0; i < items; i++) {
-            CreateItem(itemQueue.next);
+            CreateItem(itemQueue.next, i);
         }
     }
 
-    void CreateItem(Tile tile) {        
+    void CreateItem(Tile tile, int i=0) {        
         var inst = Instantiate(prefab);
         inst.pos = tile.pos;
         inst.coord = tile.coord;
         inst.gameObject.SetActive(true);
+        inst.name = nams[i];
         itemDict.Add(tile.coord, inst);
         inst.transform.SetParent(transform);
     }
