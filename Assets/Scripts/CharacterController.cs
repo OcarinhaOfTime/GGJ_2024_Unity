@@ -10,6 +10,10 @@ public class CharacterController : MonoBehaviour {
     }
 
     void Start() {
+        //controlMap.Player.Move. += ctx => Move(ctx.read)
+    }
+
+    void Move(Vector2 m) {
 
     }
 }
