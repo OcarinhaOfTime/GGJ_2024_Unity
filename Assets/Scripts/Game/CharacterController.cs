@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
+    public Vector2 lim_x;
+    public Vector2 lim_y;
+    
     ControlMap controlMap;
     public float speed = 1.0f;
 
@@ -29,6 +32,10 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        pos += Time.deltaTime * speed * vel;
+        var npos = pos;
+        npos += Time.deltaTime * speed * vel;
+        //npos.x = Mathf.Clamp(npos.x, lim_x.x, lim_x.y);
+        //npos.y = Mathf.Clamp(npos.y, lim_y.x, lim_y.y);
+        pos = npos;
     }
 }

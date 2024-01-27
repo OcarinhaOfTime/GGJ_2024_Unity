@@ -10,26 +10,31 @@ public class MapController : MonoBehaviour {
     public int width = 8;
     public int height = 8;
     public bool generateAtStart;
-    
-    public Color activeColor;
-    public Color hColor;
-    public Color deactiveColor;
 
     void Awake(){
         instance = this;
     }
 
     void Start(){
-        if(generateAtStart){
-            Generate();
-        }else{
-            Load();
-        }
+        //if(generateAtStart){
+        //    Generate();
+        //}else{
+        //    Load();
+        //}
     }
 
     [ContextMenu("Generate")]
     public void Generate() {
         map = new Map<Tile>(width, height, CreateTile);
+    }
+
+    [ContextMenu("Clear")]
+    public void Clear() {
+        foreach(var tile in GetComponentsInChildren<Tile>()) { 
+            DestroyImmediate(tile.gameObject);
+        }
+
+        print("All clear");
     }
 
     public int currentChild = 1;
@@ -41,10 +46,10 @@ public class MapController : MonoBehaviour {
     Tile CreateTile(int x, int y){
         var inst = Instantiate(prefab);
         inst.transform.SetParent(transform);
-        var min = new Vector2(-width/2, -height/2);
+        //var min = new Vector2(-width/2, -height/2);
         var p = Map<Tile>.CoordToWorldPoint(x, y, width, height);
         inst.Setup(this);
-        inst.transform.localPosition = p;
+        inst.pos = p;
         inst.name = $"{x}x{y}";
         inst.gameObject.SetActive(true);
         inst.coord = new Vector2Int(x, y);        
@@ -61,19 +66,5 @@ public class MapController : MonoBehaviour {
         inst.Setup(this);
         //inst.Deactive();
         return inst;
-    }    
-
-    public void ResetSelection(){
-        //map.MapIter((t, _, __) => t.Deactive());
-    }
-
-    public (int, int, bool) EvaluateMouse(){
-        Vector2 p = ControlManager.instance.mpos;
-        var inside = map.ContainsWorldPosition(p);
-        if(!inside) return (0, 0, false);
-
-        var c = map.WorldPointToCoord(p);
-
-        return (c.x, c.y, true);
     }
 }
