@@ -27,7 +27,6 @@ public class Player : MonoBehaviour {
     }
 
     void OnCoordChange() {
-        print("Changed Coord");
         var item = gameManager.AttemptGrabItem(coord);
         if (item == null) return;
 

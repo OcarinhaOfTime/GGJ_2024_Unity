@@ -22,9 +22,10 @@ public class ControlManager : MonoBehaviour {
         instance = this;
         mainControl = new ControlMap();
         mainControl.Enable();
+
         //mainRaycaster.onClick.AddListener(() => onMouseDown.Invoke(mpos));
         mainControl.Player.Exit.performed += ctx => Application.Quit();
-        mainControl.Player.Restart.performed += 
+        mainControl.Player.Restart.performed +=
         ctx => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
