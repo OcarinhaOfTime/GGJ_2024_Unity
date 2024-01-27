@@ -7,7 +7,7 @@ public class CharacterController : MonoBehaviour {
     public Vector2 lim_x;
     public Vector2 lim_y;
     
-    ControlMap controlMap;
+    //ControlMap controlMap;
     public float speed = 1.0f;
 
     public Vector2 vel;
@@ -23,12 +23,13 @@ public class CharacterController : MonoBehaviour {
         set => transform.localPosition = new Vector3(value.x, transform.localPosition.y, value.y);
     }
     private void Awake() {
-        controlMap = new ControlMap();
-        controlMap.Enable();
+        //controlMap = new ControlMap();
+        //controlMap.Enable();
 
         playerInput = GetComponent<PlayerInput>();
+        //playerInput.actionEvents
     }
-
+    public Transform player;
     void Start() {
         var cont = GameManager.instance;
         lim_x = cont.lim_x;
@@ -36,12 +37,16 @@ public class CharacterController : MonoBehaviour {
 
         cont.OnPlayerSpawn(transform);
 
-        var player = controlMap.Player;
-        player.Move.performed += 
-            ctx => Move(ctx.ReadValue<Vector2>());
+        //var player = controlMap.Player;
+        //player.Move.performed += 
+        //    ctx => Move(ctx.ReadValue<Vector2>());
 
-        player.Move.canceled +=
-            ctx => Move(ctx.ReadValue<Vector2>());
+        //player.Move.canceled +=
+        //    ctx => Move(ctx.ReadValue<Vector2>());
+    }
+
+    public void MoveCallback(InputAction.CallbackContext ctx) {
+        Move(ctx.ReadValue<Vector2>());
     }
 
     void Move(Vector2 m) {
