@@ -23,13 +23,19 @@ public class CharacterController : MonoBehaviour {
         set => transform.localPosition = new Vector3(value.x, transform.localPosition.y, value.y);
     }
     private void Awake() {
-        //controlMap = new ControlMap();
-        //controlMap.Enable();
+        controlMap = new ControlMap();
+        controlMap.Enable();
 
         playerInput = GetComponent<PlayerInput>();
     }
 
     void Start() {
+        var cont = GameManager.instance;
+        lim_x = cont.lim_x;
+        lim_y = cont.lim_y;
+
+        cont.OnPlayerSpawn(transform);
+
         var player = controlMap.Player;
         player.Move.performed += 
             ctx => Move(ctx.ReadValue<Vector2>());
@@ -45,8 +51,10 @@ public class CharacterController : MonoBehaviour {
     private void FixedUpdate() {
         var npos = pos;
         npos += Time.deltaTime * speed * vel;
-        //npos.x = Mathf.Clamp(npos.x, lim_x.x, lim_x.y);
-        //npos.y = Mathf.Clamp(npos.y, lim_y.x, lim_y.y);
+
+        npos.x = Mathf.Clamp(npos.x, lim_x.x, lim_x.y);
+        npos.y = Mathf.Clamp(npos.y, lim_y.x, lim_y.y);
+
         pos = npos;
     }
 }

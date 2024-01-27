@@ -21,9 +21,7 @@ public class IsoCamera : MonoBehaviour
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             transform.position = smoothedPosition;
 
-            //smoothedPosition.x = Mathf.Clamp(smoothedPosition.x, minX, maxX);
-
-           
+            //smoothedPosition.x = Mathf.Clamp(smoothedPosition.x, minX, maxX);           
         }
     }
 }

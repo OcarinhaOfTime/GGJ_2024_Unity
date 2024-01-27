@@ -772,9 +772,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc181e638acf954ba686b4108281965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lim_x: {x: 0, y: 0}
+  lim_y: {x: 0, y: 0}
   mapController: {fileID: 150432145}
   items: 5
   prefab: {fileID: 379444560}
+  isoCamera: {fileID: 963194229}
 --- !u!1 &1427283142
 GameObject:
   m_ObjectHideFlags: 0
