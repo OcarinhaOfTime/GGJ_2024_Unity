@@ -34,8 +34,8 @@ public class CharacterController : MonoBehaviour {
     private void FixedUpdate() {
         var npos = pos;
         npos += Time.deltaTime * speed * vel;
-        //npos.x = Mathf.Clamp(npos.x, lim_x.x, lim_x.y);
-        //npos.y = Mathf.Clamp(npos.y, lim_y.x, lim_y.y);
+        npos.x = Mathf.Clamp(npos.x, lim_x.x, lim_x.y);
+        npos.y = Mathf.Clamp(npos.y, lim_y.x, lim_y.y);
         pos = npos;
     }
 }

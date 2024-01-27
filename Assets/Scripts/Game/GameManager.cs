@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         mapController.Generate();
         var ws = new Vector2Int(mapController.width, mapController.height);
-        var limx = mapController.map.CoordToWorldPoint(ws);
-        print(limx);
-        //charController.lim_x
+        var limw = mapController.map.CoordToWorldPoint(ws) - Vector2.one;
+        print(limw);
+        charController.lim_x = new Vector2(-limw.x, limw.x);
+        charController.lim_y = new Vector2(-limw.y, limw.y);
     }
 }
