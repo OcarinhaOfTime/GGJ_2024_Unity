@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,13 +9,14 @@ public class GameManager : MonoBehaviour {
     public Vector2 lim_y;
     public static GameManager instance;
     public MapController mapController;
-    //public CharacterController charController;
 
     [Range(0, 10)]public int items = 5;
     public ItemPickup prefab;
-    //public List<ItemPickup> itemsPickups;
     public Dictionary<Vector2Int, ItemPickup> itemDict;
     public IsoCamera isoCamera;
+    public GameObject winPanel;
+
+    public List<Player> players = new List<Player>();
 
     void Awake() {
         instance = this;
@@ -36,12 +38,13 @@ public class GameManager : MonoBehaviour {
         "Page 2", 
         "Trap", 
         "Nothin", 
-        "Buff" 
+        "Buff"
     };
 
     public void OnPlayerSpawn(Transform new_player) {
         isoCamera.player = new_player;
         isoCamera.players.Add(new_player);
+        players.Add(new_player.GetComponent<Player>());
     }
 
     void GenerateItems() {
@@ -69,5 +72,15 @@ public class GameManager : MonoBehaviour {
         itemDict.Remove(c);
 
         return item;
+    }
+
+    public void RestartGame() {
+
+    }
+
+    public void ShowWinner(Player player) {
+        winPanel.SetActive(true);
+        var txt = winPanel.GetComponentInChildren<TMP_Text>();
+        txt.text = "";
     }
 }

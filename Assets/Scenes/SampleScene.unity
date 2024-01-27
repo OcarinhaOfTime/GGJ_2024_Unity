@@ -1019,6 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  players: []
   smoothSpeed: 10
   offset: {x: 0, y: 5, z: -6.44}
   minBounds: {x: -3, y: -12}
@@ -1144,6 +1145,8 @@ MonoBehaviour:
   items: 5
   prefab: {fileID: 379444560}
   isoCamera: {fileID: 963194229}
+  winPanel: {fileID: 0}
+  players: []
 --- !u!1 &1427283142
 GameObject:
   m_ObjectHideFlags: 0

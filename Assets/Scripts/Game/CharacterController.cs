@@ -27,7 +27,7 @@ public class CharacterController : MonoBehaviour {
         //controlMap.Enable();
 
         playerInput = GetComponent<PlayerInput>();
-        //playerInput.actionEvents
+        name = playerInput.currentControlScheme + " Player";
     }
     public Transform player;
     void Start() {
